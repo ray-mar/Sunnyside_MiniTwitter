@@ -79,7 +79,7 @@ public class addUser extends controlPanel {
             }
             else {
                 User child = new UserGroup(groupId.getText());
-
+                System.out.println("Group "  + groupId.getText() + " just created! Time of creaton: " + System.currentTimeMillis());
                 allUsers.put(child.getID(), child);
                 ((TreePanel) treePanel).addUserGroup(child);
             }
