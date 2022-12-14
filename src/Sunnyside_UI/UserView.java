@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Map;
+import java.util.Set;
 
 
 public class UserView extends controlPanel {
@@ -95,8 +96,8 @@ public class UserView extends controlPanel {
         frame.setLayout(new GridBagLayout());
         frame.setSize(800, 400);
         frame.setVisible(true);
-        frame.setTitle(((User) user).getID());
-
+        frame.setTitle(((User) user).getID()+ " Creation Time: " + ((User) user).getCreationTime());
+        System.out.println("Opening " + ((User) user).getID() + " || Creation Time: " + ((User) user).getCreationTime());
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 openPanels.remove(((User) user).getID());
@@ -115,7 +116,9 @@ public class UserView extends controlPanel {
     }
 
     private void updateFollowing() {
+        int i = 0;
         StringBuilder list = new StringBuilder("Following List \n");
+
         for (String following : ((UserLeaf) user).getFollowing().keySet()) {
             list.append(" - ").append(following).append("\n");
         }

@@ -11,10 +11,12 @@ public class UserLeaf extends User implements Subject
 
     private String latestMessage;
     private int positiveMessageCount;
+    private String latestUpdated;
 
     private final Map<String, Observer> followers;
     private final Map<String, Subject> following;
     private final List<String> newsFeed;
+    private final List<String> lastUpdated;
 
 
     public UserLeaf(String id) {
@@ -23,6 +25,7 @@ public class UserLeaf extends User implements Subject
         followers.put(this.getID(), this);
         following = new HashMap<>();
         newsFeed = new ArrayList<>();
+        lastUpdated = new ArrayList<>();
     }
 
 
@@ -46,6 +49,12 @@ public class UserLeaf extends User implements Subject
         return positiveMessageCount;
     }
 
+    public List<String> getLastUpdated(){return lastUpdated;}
+
+    public String getLatestUpdated(){return latestUpdated;}
+
+    public Long getLastUpdatedTime(){return this.getLastUpdateTime();}
+
     @Override
     public int getUserGroupCount() {
         return 0;
@@ -59,7 +68,9 @@ public class UserLeaf extends User implements Subject
     public void sendMessage(String message) {
         this.latestMessage = message;
         this.setMessageCount(this.getMessageCount() + 1);
-
+        this.setLastUpdateTime(System.currentTimeMillis());
+        System.out.println(this.getID() + " just sent a message! Update time: " + this.getLastUpdateTime());
+        latestUpdated = this.getID();
         if (isPositiveMessage(message)) {
             ++positiveMessageCount;
         }
@@ -76,6 +87,7 @@ public class UserLeaf extends User implements Subject
     @Override
     public void update(Subject subject) {
         newsFeed.add(0, (((UserLeaf) subject).getID() + ": " + ((UserLeaf) subject).getLatestMessage()));
+        lastUpdated.add(0, (((UserLeaf) subject).getID() + ": " + ((UserLeaf) subject).getLastUpdatedTime()));
     }
 
     @Override

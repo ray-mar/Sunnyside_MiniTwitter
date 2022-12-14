@@ -54,6 +54,10 @@ public class addUser extends controlPanel {
                 errorMessage errorMessage = new errorMessage("Error!", "This girl exists already.\nPlease choose a different user name.",
                         JOptionPane.ERROR_MESSAGE);
             }
+            else if (userId.getText().contains(" ")) {
+                errorMessage errorMessage = new errorMessage("Error!", "No spaces..\nPlease choose a different user name.",
+                        JOptionPane.ERROR_MESSAGE);
+            }
             else {
                 User child = new UserLeaf(userId.getText());
 
@@ -67,6 +71,10 @@ public class addUser extends controlPanel {
         addGroupButton.addActionListener(e -> {
             if (allUsers.containsKey(groupId.getText())) {
                 errorMessage errorMessage = new errorMessage("Error!", "This girl exists already.\nPlease choose a different user name.",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            else if (groupId.getText().contains(" ")) {
+                errorMessage errorMessage = new errorMessage("Error!", "No spaces..\nPlease choose a different user name.",
                         JOptionPane.ERROR_MESSAGE);
             }
             else {

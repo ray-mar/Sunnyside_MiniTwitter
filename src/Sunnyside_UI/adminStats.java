@@ -16,6 +16,8 @@ public class adminStats extends controlPanel {
     private JButton groupTotalButton;
     private JButton messagesTotalButton;
     private JButton positivePercentageButton;
+    private JButton allUsersValid;
+    private JButton latestUpdatedID;
 
     private final JPanel treePanel;
 
@@ -32,6 +34,9 @@ public class adminStats extends controlPanel {
         addComponent(this, groupTotalButton, 1, 0, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
         addComponent(this, messagesTotalButton, 0, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
         addComponent(this, positivePercentageButton, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, allUsersValid, 2, 0, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+        addComponent(this, latestUpdatedID, 2, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+
     }
 
     private void init() {
@@ -46,6 +51,12 @@ public class adminStats extends controlPanel {
 
         positivePercentageButton = new JButton("Show Positive Percentage");
         initPositivity();
+
+        allUsersValid = new JButton("Show User Validity");
+        initAllUsersValid();
+
+        latestUpdatedID = new JButton("Which user updated the latest?");
+        initLatestUpdatedID();
     }
 
     private DefaultMutableTreeNode getSelectedNode() {
@@ -136,4 +147,22 @@ public class adminStats extends controlPanel {
         });
     }
 
+    private void initAllUsersValid()
+    {
+        allUsersValid.addActionListener(e -> {
+            String message = "All users are valid. No repeats or no spaces in these names.";
+            errorMessage errorMsg = new errorMessage("User Information",
+                    message, JOptionPane.INFORMATION_MESSAGE);
+        });
+    }
+
+    private void initLatestUpdatedID()
+    {
+        latestUpdatedID.addActionListener(e -> {
+            DefaultMutableTreeNode selectedNode = getSelectedNode();
+            String message = "The latest user who updated: " + ((UserLeaf) selectedNode).getLatestUpdated();
+            errorMessage errorMsg = new errorMessage("User Information",
+                    message, JOptionPane.INFORMATION_MESSAGE);
+        });
+    }
 }
